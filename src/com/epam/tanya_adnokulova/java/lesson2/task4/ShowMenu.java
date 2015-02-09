@@ -16,31 +16,39 @@ public class ShowMenu {
 			System.out.println("3. Find candy");
 			System.out.println("4. Show gift");
 			
-			try{
+			try {
 				option = in.nextInt();
 			} catch (InputMismatchException e) {
 				System.out.println("Wrong option!");
+				in.next();
 				option = -1;
 			}
 		
 			switch(option) {
 				case 1:
 					int type = -1;
-					while (type != 0) {
-						System.out.println("Choose the type of candy:\n1) Caramel candy\n2) Chocolate candy\n3) Truffle candy");
+					do {
+						System.out.println("Choose the type of candy:\n1. Caramel candy\n2. Chocolate candy\n3. Truffle candy");
 						try {
 							type = in.nextInt();
 						} catch (InputMismatchException e) {
-							System.out.println("Wrong option!");
-							type = -1;
+							System.out.println(e);
+							in.next();
+							break;
 						}
 						
 						System.out.print("Enter the name of candy: ");
-						String name = in.nextLine();
+						String name = in.next();
 						System.out.print("Enter the color of candy: ");
-						String color = in.nextLine();
+						String color = in.next();
 						System.out.print("Enter the weight of candy: ");
 						double weight = in.nextDouble();
+						if (weight <= 0) {
+							System.out.println("Weight cannot be negative!");
+							type = -1;
+							break;
+						}
+						
 						switch(type) {
 							case 1:
 								gift.addCandy(new CaramelCandy(name, color, weight));
@@ -52,24 +60,38 @@ public class ShowMenu {
 								gift.addCandy(new TruffleCandy(name, color, weight));
 								break;
 							default: 
-								System.out.println("Unknown operation");
+								System.out.println("Unknown type of candy");
 								break;
 						}
 					System.out.println("Enter 1 to continue 'gift creation', 0 to return to menu");
-					type = in.nextInt();
+					
+					try {
+						type = in.nextInt();
+					} catch (InputMismatchException e) {
+						System.out.println(e);
+						in.next();
+					}
+					
 					if (type == 0) {
 						gift.showGift();
 						System.out.println("_________________________________");
 						System.out.println("Total gift weight: " + gift.getTotalWeight());
 					}
-					}
+					} while (type != 0);
 					break;
 				case 2:
 					gift.sortByWeight();
 					break;
 				case 3:
+					int search = 0;
 					System.out.println("Choose a field to search:\n1) Name\n2) Color\n3) Weight range");
-					int search = in.nextInt();
+					try {
+						search = in.nextInt();
+					} catch (InputMismatchException e) {
+						System.out.println(e);
+						in.next();
+					}
+					
 					switch (search) {
 						case 1:
 							gift.findByName();
@@ -94,7 +116,12 @@ public class ShowMenu {
 			}
 		
 			System.out.println("Enter 1 to continue, 0 to exit the application");
-			option = in.nextInt();
+			try {
+				option = in.nextInt();
+			} catch (InputMismatchException e) {
+				System.out.println(e);
+				in.next();
+			}
 		}
 		while(option != 0);
 		in.close();
