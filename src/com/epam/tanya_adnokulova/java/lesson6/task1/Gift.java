@@ -1,14 +1,16 @@
-package com.epam.tanya_adnokulova.java.lesson2.task4;
+package com.epam.tanya_adnokulova.java.lesson6.task1;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class Gift {
-	private List<Candy> candyList = new ArrayList<Candy>();
-	Scanner in = new Scanner(System.in);
+public class Gift implements Serializable {
+	private static final long serialVersionUID = 1L;
+	public List<Candy> candyList = new ArrayList<Candy>();
+	transient Scanner in = new Scanner(System.in);
 	
 	public void addCandy(Candy candy) {
 		candyList.add(candy);

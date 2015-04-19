@@ -1,4 +1,4 @@
-package com.epam.tanya_adnokulova.java.lesson2.task4;
+package com.epam.tanya_adnokulova.java.lesson6.task1;
 
 import java.util.Comparator;
 

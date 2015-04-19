@@ -1,20 +1,24 @@
-package com.epam.tanya_adnokulova.java.lesson2.task4;
+package com.epam.tanya_adnokulova.java.lesson6.task1;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ShowMenu {
 	private Gift gift = new Gift();
 	
-	public void giftMenu() {
+	public void giftMenu() throws ClassNotFoundException, FileNotFoundException, IOException {
 		int option = -1;
 		Scanner in = new Scanner(System.in);
 	
 		do {
 			System.out.println("Choose an option:");
-			System.out.println("1. Create a gift");
+			System.out.println("1. Create gift");
 			System.out.println("2. Sort candies by weight");
 			System.out.println("3. Find candy");
 			System.out.println("4. Show gift");
+			System.out.println("5. Save to 'X-masGift.txt'");
+			System.out.println("6. Load from 'X-masGift.txt'");
 			
 			try {
 				option = in.nextInt();
@@ -84,7 +88,7 @@ public class ShowMenu {
 					break;
 				case 3:
 					int search = 0;
-					System.out.println("Choose a field to search:\n1) Name\n2) Color\n3) Weight range");
+					System.out.println("Choose a field to search:\n1. Name\n2. Color\n3. Weight range");
 					try {
 						search = in.nextInt();
 					} catch (InputMismatchException e) {
@@ -109,6 +113,12 @@ public class ShowMenu {
 					break;
 				case 4:
 					gift.showGift();
+					break;
+				case 5:
+					IO.objectOutput(gift);
+					break;
+				case 6:
+					gift = IO.objectInput();
 					break;
 				default:
 					System.out.println("Unknown operation");
